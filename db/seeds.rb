@@ -13,10 +13,10 @@ Mood.create(name: "vibes bro, just vibes")
 Mood.create(name: "chillin' out maxin' relaxin' all cool")
 Mood.create(name: "depressy")
 
-User.create(name: "Joe")
-User.create(name: "Haley")
-User.create(name: "Stefani")
-User.create(name: "Kyle")
+User.create(name: "Joe Auz")
+User.create(name: "Haley Rodzos")
+User.create(name: "Stefani Waddell")
+User.create(name: "Kyle Bradley")
 
 
 
