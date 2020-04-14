@@ -1,4 +1,4 @@
-class CreateMemes < ActiveRecord::Migration[5.2]
+class CreateMemes < ActiveRecord::Migration[5.0]
     def change
         create_table :memes do |t|
             t.string :name
