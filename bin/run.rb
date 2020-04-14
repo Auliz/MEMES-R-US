@@ -19,6 +19,7 @@ end
 
 puts "\nPlease enter a moods' number from the above list: "
 
+
 # takes in user input in the form of a string ex. "3"
 user_mood_input = gets.chomp
 # subtracts 1 from the user input to match the index pattern of an array (arrays start at 0 and our list starts at 1)
@@ -34,6 +35,7 @@ user_id_from_input = User.all.find_by(name: "#{user_name_input}").id
 
 # creates (aka .new and .save) the join of the mood, user, and meme
 FinalKey.create(mood_id: "#{user_mood_id_from_input}", user_id: "#{user_id_from_input}")
+
 
 binding.pry
 
