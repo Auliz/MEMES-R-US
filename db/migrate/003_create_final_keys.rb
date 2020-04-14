@@ -1,4 +1,4 @@
-class CreateFinalKeys < ActiveRecord::Migration[5.2]
+class CreateFinalKeys < ActiveRecord::Migration[5.0]
     def change
         create_table :final_keys do |t|
             t.integer :mood_id
