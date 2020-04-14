@@ -19,12 +19,12 @@ def program_memes
   # we use the JSON library to parse the API response into nicely formatted JSON
     programs = JSON.parse(self.get_memes)
     #programs.each do |program, memes, idk|
-      binding.pry
       programs["data"][0]["image"]
 end
 end
 
 #programs = GetMemes.new.get_memes
 #puts programs
+#puts programs.program_memes.uniq
 programs = GetMemes.new
-puts programs.program_memes.uniq
+puts programs.program_memes
