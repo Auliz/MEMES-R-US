@@ -1,4 +1,7 @@
 require_relative '../config/environment'
+require_relative 'memes_api'
+
+programs = GetMemes.new
 
 puts "Please enter your first and last name:"
 # takes in user input in the form of a string ex. "Stefani Waddell"
@@ -22,6 +25,11 @@ puts "\nPlease enter a mood's number from the above list: "
 
 # takes in user input in the form of a string ex. "3"
 user_mood_input = gets.chomp
+if user_mood_input.to_i.between?(1,10) == true
+  puts programs.program_memes
+else 
+  puts "ruh roh"
+end 
 # subtracts 1 from the user input to match the index pattern of an array (arrays start at 0 and our list starts at 1)
 mood_search = user_mood_input.to_i - 1
 # uses the above index to search the array and get the name of the mood
@@ -37,4 +45,4 @@ user_id_from_input = User.all.find_by(name: "#{user_name_input}").id
 FinalKey.create(mood_id: "#{user_mood_id_from_input}", user_id: "#{user_id_from_input}")
 
 
-
+# binding.pry
