@@ -15,7 +15,7 @@ end
 puts "\nPlease enter a moods' number from the above list: "
 
 # user input - 1 to search the array of moods 
-
+mood_list
 # take mood name and search the databse for it's id
 user_mood_id_from_input = Mood.all.find_by(name: "meh").id 
 
