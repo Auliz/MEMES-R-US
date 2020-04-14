@@ -46,3 +46,8 @@ FinalKey.create(mood_id: "#{user_mood_id_from_input}", user_id: "#{user_id_from_
 
 
 # binding.pry
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> 7376c35b3c2ebca2f56943bfc7d0aef263bf75e3
