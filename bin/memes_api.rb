@@ -18,6 +18,7 @@ class GetMemes
     meme_number = rand(1..23)
     programs = JSON.parse(self.get_memes)
 
+
     meme_name = programs["data"][meme_number]["name"]
     meme_url = programs["data"][meme_number]["image"]
 
@@ -26,3 +27,4 @@ class GetMemes
     return "Meme's name: #{meme_name}\nMeme's URL: #{meme_url}"
   end
 end
+

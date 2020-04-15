@@ -20,7 +20,7 @@ mood_list.each.with_index(1) do |value, index|
   puts "#{index}: #{value}"
 end
 
-puts "\nPlease enter a moods' number from the above list: "
+puts "\nPlease enter a mood's number from the above list: "
 
 
 # takes in user input in the form of a string ex. "3"
@@ -46,7 +46,6 @@ user_id_from_input = User.all.find_by(name: "#{user_name_input}").id
 # creates (aka .new and .save) the join of the mood, user, and meme
 FinalKey.create(mood_id: "#{user_mood_id_from_input}", 
 user_id: "#{user_id_from_input}", meme_id: "#{Meme.all.last.id}")
-
 
 binding.pry
 
