@@ -19,7 +19,12 @@ def user_inputs_name_and_mood
 end
   puts "\nPlease enter a mood's number from the above list: "
 # takes in user input in the form of a string ex. "3"
-  user_mood_input = gets.chomp
+user_mood_input = gets.chomp
+if user_mood_input.to_i.between?(1,10) == true 
+  puts "\nSweet, here's a random meme"
+  puts programs.program_memes
+else 
+  puts "\nRuh roh"
 end 
 
 def first_meme_return
@@ -75,11 +80,16 @@ def get_user_id
 user_id_from_input = User.all.find_by(name: "#{user_name_input}").id
 end
 
+
 # creates (aka .new and .save) the join of the mood, user, and meme
+
 def mood_user_meme_joiner
-FinalKey.create(mood_id: "#{user_mood_id_from_input}", user_id: "#{user_id_from_input}")
+FinalKey.create(mood_id: "#{user_mood_id_from_input}", 
+user_id: "#{user_id_from_input}", meme_id: "#{Meme.all.last.id}")
 end
 
 # binding.pry
+
+binding.pry
 
 
