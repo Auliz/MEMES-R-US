@@ -2,7 +2,7 @@ require 'net/http'
 require 'open-uri'
 require 'json'
 require 'pry'
-require_relative 'app/models/meme'
+#require_relative 'app/models/meme'
  
 class GetMemes
   page_number = rand(1..10)

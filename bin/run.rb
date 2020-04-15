@@ -26,10 +26,38 @@ puts "\nPlease enter a mood's number from the above list: "
 # takes in user input in the form of a string ex. "3"
 user_mood_input = gets.chomp
 if user_mood_input.to_i.between?(1,10) == true
+  puts "\nSweet, here's a random meme"
   puts programs.program_memes
 else 
-  puts "ruh roh"
+  puts "\nRuh roh"
 end 
+
+puts "\nDid your mood change? Enter 'yes' or 'no' below:"
+
+
+counter = 0
+no_counter = 0
+while (counter < 1 && no_counter < 5)
+  user_yesno_input = gets.chomp
+if user_yesno_input == "yes" 
+  counter = 1
+  puts "\nNoice. What did it change to? Enter a number from the mood's list again:"
+  mood_list.each.with_index(1) do |value, index|
+    puts "#{index}: #{value}" 
+  end
+    user_changed_mood_input = gets.chomp
+elsif no_counter < 4
+  puts programs.program_memes
+  puts "\nHow 'bout now? Yes or no:" 
+  no_counter += 1
+else 
+  puts "Out of memes for today. Seek therapy"
+  no_counter += 1
+end
+end
+
+
+
 # subtracts 1 from the user input to match the index pattern of an array (arrays start at 0 and our list starts at 1)
 mood_search = user_mood_input.to_i - 1
 # uses the above index to search the array and get the name of the mood
@@ -46,8 +74,3 @@ FinalKey.create(mood_id: "#{user_mood_id_from_input}", user_id: "#{user_id_from_
 
 
 # binding.pry
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 7376c35b3c2ebca2f56943bfc7d0aef263bf75e3
