@@ -10,4 +10,5 @@ class CallOnShit < Whatever
     methods.first_meme_return
     methods.mood_change
     methods.delete
+    methods.print_updated_info
 end

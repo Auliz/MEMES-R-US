@@ -63,21 +63,28 @@ class Whatever
       end
     end
   end
+  
+  def delete
+    puts "Your mood has been updated. If you want to delete the updated mood and meme, enter 'd'. Otherwise, hit enter."
+    user_input = gets.chomp
+    if user_input == "d"
+      FinalKey.all.last.destroy
+      puts "cool deleted"
+    else
+      puts "To see your updated mood info, enter 'yes'. Otherwise, hit enter."
+    end
+  end
 
+  def print_updated_info
+    user_input = gets.chomp
+    if user_input == "yes"
+      puts "saved info will be right hur"
+    else
+      puts "bye felicia"
+    end
   end
 end
-
-def delete
-  puts "Your mood has been updated. If you want to delete the updated mood and meme, enter 'd'. Otherwise, press enter"
-  user_input = gets.chomp
-  if user_input == "d"
-  FinalKey.all.last.destroy
-  puts "cool deleted"
-  else
-    puts "Your new mood was saved."
-  end
-  end
-end
+  
 
 
 
