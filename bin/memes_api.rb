@@ -24,9 +24,10 @@ class GetMemes
     meme_name = programs["data"][meme_number]["name"]
     meme_url = programs["data"][meme_number]["image"]
 
-    Meme.find_or_create_by(name: "#{meme_name}", url: "#{meme_url}").id
+    Meme.find_or_create_by(name: "#{meme_name}", url: "#{meme_url}")
 
     return "Meme's name: #{meme_name}\nMeme's URL: #{meme_url}"
   end
+  
 end
 
