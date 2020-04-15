@@ -26,8 +26,10 @@ puts "\nPlease enter a mood's number from the above list: "
 # takes in user input in the form of a string ex. "3"
 user_mood_input = gets.chomp
 if user_mood_input.to_i.between?(1,10) == true
+  
   puts "\nSweet, here's a random meme"
   puts programs.program_memes
+
 else 
   puts "\nRuh roh"
 end 
@@ -69,8 +71,11 @@ user_mood_id_from_input = Mood.all.find_by(name: "#{mood_input_name}").id
 # gets the primary key of the current user
 user_id_from_input = User.all.find_by(name: "#{user_name_input}").id
 
+
 # creates (aka .new and .save) the join of the mood, user, and meme
-FinalKey.create(mood_id: "#{user_mood_id_from_input}", user_id: "#{user_id_from_input}")
+FinalKey.create(mood_id: "#{user_mood_id_from_input}", 
+user_id: "#{user_id_from_input}", meme_id: "#{Meme.all.last.id}")
 
 
-# binding.pry
+binding.pry
+

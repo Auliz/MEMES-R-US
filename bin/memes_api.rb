@@ -2,7 +2,9 @@ require 'net/http'
 require 'open-uri'
 require 'json'
 require 'pry'
-#require_relative 'app/models/meme'
+
+require_relative '../config/environment'
+
  
 class GetMemes
   page_number = rand(1..10)
@@ -17,9 +19,14 @@ class GetMemes
   def program_memes
     meme_number = rand(1..23)
     programs = JSON.parse(self.get_memes)
-    programs["data"][meme_number]["image"]
+
+
+    meme_name = programs["data"][meme_number]["name"]
+    meme_url = programs["data"][meme_number]["image"]
+
+    Meme.find_or_create_by(name: "#{meme_name}", url: "#{meme_url}").id
+
+    return "Meme's name: #{meme_name}\nMeme's URL: #{meme_url}"
   end
 end
-# programs = GetMemes.new
 
-# binding.pry
