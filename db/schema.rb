@@ -10,12 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 5) do
+ActiveRecord::Schema.define(version: 6) do
 
   create_table "final_keys", force: :cascade do |t|
     t.integer "mood_id"
     t.integer "user_id"
     t.integer "meme_id"
+    t.integer "updated_mood_id"
+    t.integer "updated_meme_id"
   end
 
   create_table "memes", force: :cascade do |t|
