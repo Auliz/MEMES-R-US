@@ -74,7 +74,22 @@ def mood_change
   end
   end
 end
+
+def delete
+  puts "Your mood has been updated. If you want to delete the updated mood and meme, enter 'd'. Otherwise, press enter"
+  user_input = gets.chomp
+  if user_input == "d"
+  FinalKey.all.last.destroy
+  puts "cool deleted"
+  else
+    puts "Your new mood was saved."
+  end
+  end
 end
+
+
+
+
 
 
 
