@@ -63,4 +63,44 @@ class Whatever
       end
     end
   end
+  
+  def delete
+    puts "Your mood has been updated. If you want to delete the updated mood and meme, enter 'd'. Otherwise, hit enter."
+    user_input = gets.chomp
+    if user_input == "d"
+      FinalKey.all.last.destroy
+      puts "cool deleted"
+    else
+      puts "To see your updated mood info, enter 'yes'. Otherwise, hit enter."
+    end
+  end
+
+  def print_updated_info
+    user_input = gets.chomp
+    if user_input == "yes"
+      puts "saved info will be right hurrr"
+    else
+      puts "bye felicia"
+    end
+  end
 end
+  
+
+
+
+
+
+
+
+
+# subtracts 1 from the user input to match the index pattern of an array (arrays start at 0 and our list starts at 1)
+#mood_search = @@user_mood_input.to_i - 1
+# uses the above index to search the array and get the name of the mood
+#mood_input_name = mood_list[mood_search]
+# gets the primary key from the mood table for the mood that the user entered
+#user_mood_id_from_input = Mood.all.find_by(name: "#{mood_input_name}").id 
+# gets the primary key of the current user
+#user_id_from_input = User.all.find_by(name: "#{user_name_input}").id
+# creates (aka .new and .save) the join of the mood, user, and meme
+#FinalKey.create(mood_id: "#{user_mood_id_from_input}", user_id: "#{user_id_from_input}")
+

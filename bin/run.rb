@@ -9,4 +9,6 @@ class CallOnShit < Whatever
     methods.user_inputs_mood
     methods.first_meme_return
     methods.mood_change
+    methods.delete
+    methods.print_updated_info
 end
