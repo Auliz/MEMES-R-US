@@ -34,6 +34,7 @@ puts "\n\n"
 #You can add other formatting options as well. Separate each
 #formatting code with a semicolon. Begin your format code with \e[ and end 
 #with the letter m.
+<<<<<<< HEAD
 puts "Blinking Red Pikachu\n\n"
 blinking_red_pikachu = "\e[31;5m" + pikachu + "\e[0m"
 puts blinking_red_pikachu
@@ -112,3 +113,8 @@ puts blinking_moodchanger4
 
 
 
+=======
+puts "Blinking Purple Pikachu\n\n"
+blinking_purple_pikachu = "\e[34;5m" + pikachu + "\e[0m"
+puts blinking_purple_pikachu
+>>>>>>> 5447f7529090f256dad07dc4a4757486e8fde862
