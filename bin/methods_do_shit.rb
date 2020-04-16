@@ -103,7 +103,7 @@ class Whatever
   end
   
   def print_updated_info
-    user_input = @@prompt.ask('Your mood has been updated. Wanna see it?')
+    user_input = @@prompt.ask('Your mood has been updated. Wanna see it? y/n')
     #puts "Your mood's been updated. Wanna see? Enter 'yes' or 'no'"
     #user_input = gets.chomp
     if user_input == "yes"
@@ -145,33 +145,22 @@ class Whatever
 
 
   def delete
-    user_input = @@prompt.select('To delete only your last memeage and moodage, choose delete last. To delete ALL of your memeage and moodage, choose delete all. To exit, press enter') do |menu|
+    user_input = @@prompt.select('To delete only your last memeage and moodage, choose delete last. To delete ALL of your memeage and moodage, choose delete all. Otherwise, choose exit') do |menu|
   
-      menu.choice 'd'
-      menu.choice 'D'
+      menu.choice 'delete last'
+      menu.choice 'delete all'
+      menu.choice 'exit'
     end
     #puts "If you wanna delete your moodage and memeage, enter 'd'. Otherwise, press enter to exit"
     #user_input = gets.chomp
-    if user_input == "d"
-      FinalKey.all.last.destroy
+    if user_input == "delete last"
+      #FinalKey.all.last.destroy
+      FinalKey.all.where(user_id: "#{@@user.id}").last.destroy
       puts "deleted last"
-    elsif user_input == "D"
+    elsif user_input == "delete all"
+      FinalKey.all.where(user_id: "#{@@user.id}").destroy_all
       puts "deleted all"
     else
-      puts "fuck u. if this shows up its not workin bitch"
-    end
-  end
-  
-  def delete
-    puts "To delete most recent memeage: enter 'd'. To delete all your memeage: enter 'D'. To escape the memeage: press 'enter'."
-    user_input = gets.chomp
-    if user_input == "d"
-      FinalKey.all.where(user_id: "#{@@user.id}").last.destroy# destroy's last finalkey aka the current users
-      puts "cool deleted last sesh"
-    elsif user_input == "D"
-      FinalKey.all.where(user_id: "#{@@user.id}").destroy_all
-      puts "shaaaweeeet we deleted all your memeage"
-    else 
       puts "bye felicia"
     end
   end

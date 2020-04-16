@@ -37,3 +37,78 @@ puts "\n\n"
 puts "Blinking Red Pikachu\n\n"
 blinking_red_pikachu = "\e[31;5m" + pikachu + "\e[0m"
 puts blinking_red_pikachu
+
+
+mood_changer = <<-HEREDOC                                                                                                                                                    
+
+                                      [..                                                                 
+                                      [..            [..                                                  
+[... [.. [..    [..       [..         [..        [...[..        [..    [.. [..     [..      [..    [. [...
+ [..  [.  [.. [..  [..  [..  [..  [.. [..      [..   [. [.    [..  [..  [..  [.. [..  [.. [.   [..  [..   
+ [..  [.  [..[..    [..[..    [..[.   [..     [..    [..  [..[..   [..  [..  [..[..   [..[..... [.. [..   
+ [..  [.  [.. [..  [..  [..  [.. [.   [..      [..   [.   [..[..   [..  [..  [.. [..  [..[.         [..   
+[...  [.  [..   [..       [..     [.. [..        [...[..  [..  [.. [...[...  [..     [..   [....   [...   
+                                                                                  [..                     
+HEREDOC
+
+puts "mood changer\n\n"
+puts mood_changer
+puts "\n\n"
+
+blinking_moodchanger1 = "\e[35;5m" + mood_changer + "\e[0m"
+puts blinking_moodchanger1
+
+moodchanger = <<-HEREDOC   
+ _ _  _  _  _|   _|_  _  _  _  _  _
+| | |(_)(_)(_|  (_| |(_|| |(_|(/_| 
+                            _|     
+HEREDOC
+
+puts "mood changer\n\n"
+puts moodchanger
+puts "\n\n"
+
+blinking_moodchanger2 = "\e[35;5m" + moodchanger + "\e[0m"
+
+puts blinking_moodchanger2
+
+
+moodchanger3 = <<-HEREDOC
+       __   __   __      __                  __   ___  __  
+ |\/| /  \ /  \ |  \    /  ` |__|  /\  |\ | / _` |__  |__) 
+ |  | \__/ \__/ |__/    \__, |  | /~~\ | \| \__> |___ |  \                                                         
+
+HEREDOC
+
+puts  "mood changer\n\n"
+puts moodchanger3
+puts "\n\n"
+
+blinking_moodchanger3 = "\e[35;5m" + moodchanger3 + "\e[0m"
+
+puts blinking_moodchanger3
+
+
+moodchanger4 = <<-HEREDOC
+
+                       _          _                                   
+                      | |        | |                                  
+ ____   ___   ___   __| |    ____| |__  _____ ____   ____ _____  ____ 
+|    \ / _ \ / _ \ / _  |   / ___)  _ \(____ |  _ \ / _  | ___ |/ ___)
+| | | | |_| | |_| ( (_| |  ( (___| | | / ___ | | | ( (_| | ____| |    
+|_|_|_|\___/ \___/ \____|   \____)_| |_\_____|_| |_|\___ |_____)_|    
+                                                   (_____|            
+HEREDOC
+
+puts  "mood changer\n\n"
+puts moodchanger4
+puts "\n\n"
+
+blinking_moodchanger4 = "\e[35;5m" + moodchanger4 + "\e[0m"
+
+puts blinking_moodchanger4
+
+
+
+
+
