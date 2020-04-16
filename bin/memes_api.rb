@@ -2,7 +2,7 @@ require 'net/http'
 require 'open-uri'
 require 'json'
 require 'pry'
-
+require 'launchy'
 require_relative '../config/environment'
 
  
@@ -24,9 +24,10 @@ class GetMemes
     meme_name = programs["data"][meme_number]["name"]
     meme_url = programs["data"][meme_number]["image"]
 
-    Meme.find_or_create_by(name: "#{meme_name}", url: "#{meme_url}")
+    Meme.create(name: "#{meme_name}", url: "#{meme_url}")
 
-    return "Meme's name: #{meme_name}\nMeme's URL: #{meme_url}"
+    Launchy.open("#{meme_url}")
+    nil
   end
   
 end
