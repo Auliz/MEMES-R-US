@@ -55,7 +55,7 @@ puts "mood changer\n\n"
 puts mood_changer
 puts "\n\n"
 
-blinking_moodchanger1 = "\e[35;5m" + mood_changer + "\e[0m"
+blinking_moodchanger1 = "\e[34;5m" + mood_changer + "\e[0m"
 puts blinking_moodchanger1
 
 moodchanger = <<-HEREDOC   
@@ -68,7 +68,7 @@ puts "mood changer\n\n"
 puts moodchanger
 puts "\n\n"
 
-blinking_moodchanger2 = "\e[35;5m" + moodchanger + "\e[0m"
+blinking_moodchanger2 = "\e[34;5m" + moodchanger + "\e[0m"
 
 puts blinking_moodchanger2
 
@@ -84,7 +84,7 @@ puts  "mood changer\n\n"
 puts moodchanger3
 puts "\n\n"
 
-blinking_moodchanger3 = "\e[35;5m" + moodchanger3 + "\e[0m"
+blinking_moodchanger3 = "\e[34;5m" + moodchanger3 + "\e[0m"
 
 puts blinking_moodchanger3
 
@@ -104,7 +104,7 @@ puts  "mood changer\n\n"
 puts moodchanger4
 puts "\n\n"
 
-blinking_moodchanger4 = "\e[35;5m" + moodchanger4 + "\e[0m"
+blinking_moodchanger4 = "\e[34;5m" + moodchanger4 + "\e[0m"
 
 puts blinking_moodchanger4
 
