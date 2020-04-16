@@ -110,10 +110,8 @@ class Whatever
       ALL_INFO
 
     elsif user_input == "no"
-      #puts delete
       puts "ok deleted"
     else
-      #puts print_updated_info
       puts "yes value didnt work"
     end
   end
