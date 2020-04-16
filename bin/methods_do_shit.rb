@@ -58,7 +58,7 @@ class Whatever
     
     counter = 0
     no_counter = 0
-    while (counter < 1 && no_counter < 5)
+    while (counter < 1 && no_counter < 25)
       if user_yesno_input == "yes"
         counter = 1
         updated_mood = @@prompt.select('Noice. What did it change to?') do |menu|
@@ -76,7 +76,7 @@ class Whatever
         mood_input_name = mood_list[updated_mood]
         updated_mood_input = Mood.all.find_by(name: "#{mood_input_name}").id 
         FinalKey.last.update(updated_mood_id: "#{updated_mood_input}")
-      elsif no_counter < 4
+      elsif no_counter < 24
         @@programs.program_memes
         FinalKey.last.update(meme_id: "#{Meme.all.last.id}")
         @@u_meme = FinalKey.last.meme_id
