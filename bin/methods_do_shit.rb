@@ -1,15 +1,25 @@
 require_relative 'memes_api'
 require 'pry'
 require "tty-prompt"
+require 'artii'
 
 
 class Whatever
 
   @@prompt = TTY::Prompt.new
-  @@programs = GetMemes.new
+
+  def welcome
+    a = Artii::Base.new :font => 'slant'
+    puts "\e[34;5m" + "#{a.asciify('Mood Changer')}" + "\e[0m" 
+    puts <<~DISCLAIMER
+    -----DISCLAIMER-----
+    The content you will see from this app is taken from Reddit, therefore we do not control what may appear. Some content you see may be NSFW.
+    DISCLAIMER
+    sleep 5
+  end 
 
   def user_inputs_name
-    puts "Please enter your first and last name:"
+    puts "\n\nPlease enter your first and last name:"
     user_name_input = gets.chomp # takes in @@user input in the form of a string ex. "Stefani Waddell"
     @@user = User.find_or_create_by(name: "#{user_name_input}") # searches the users table for the name that was inputted, and if no such row exists, it creates one
     FinalKey.create(user_id: "#{@@user.id}")
@@ -37,7 +47,8 @@ class Whatever
   def first_meme_return
     if @@user_mood_input.between?(0,9) == true
       puts "\nSweet, here's a random meme"
-      @@programs.program_memes
+      programs = GetMemes.new
+      programs.program_memes
       FinalKey.last.update(meme_id: "#{Meme.all.last.id}")
       @@i_meme = FinalKey.last.meme_id
     else 
@@ -46,7 +57,7 @@ class Whatever
   end
 
   def mood_change
-    user_yesno_input = @@prompt.ask('Did your mood change?')
+    user_yesno_input = @@prompt.ask("Did your mood change? Enter 'yes' or 'no'")
     counter = 0
     no_counter = 0
     while (counter < 1 && no_counter < 25)
@@ -69,16 +80,18 @@ class Whatever
         updated_mood_input = Mood.all.find_by(name: "#{mood_input_name}").id 
         FinalKey.last.update(updated_mood_id: "#{updated_mood_input}")
       elsif no_counter < 24
-        @@programs.program_memes
+        memes_do = GetMemes.new
+        memes_do.program_memes
         FinalKey.last.update(meme_id: "#{Meme.all.last.id}")
-        @@u_meme = FinalKey.last.meme_id
-        user_yesno_input = @@prompt.ask('How bout now?')
+        binding.pry
+        user_yesno_input = @@prompt.ask("How bout now? Enter 'yes' or 'no' ")
         no_counter += 1
       else 
         puts "Out of memes for today. Seek therapy"
         no_counter += 1
       end
     end
+    @@u_meme = FinalKey.last.meme_id
   end
   
   def print_updated_info
@@ -119,7 +132,8 @@ class Whatever
       FinalKey.all.where(user_id: "#{@@user.id}").destroy_all
       puts "deleted all"
     else user_input == "exit"
-      puts "bye felicia"
+      a = Artii::Base.new :font => 'slant'
+      puts "\e[34m" + "#{a.asciify('bye felicia')}" + "\e[0m" 
       `say "bye felicia"`
     end
   end
