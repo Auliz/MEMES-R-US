@@ -90,7 +90,7 @@ class Whatever
   end
   
   def print_updated_info
-    user_input = @@prompt.ask('Your mood has been updated. Wanna see it?')
+    user_input = @@prompt.ask('Your mood has been updated. Wanna see it? (yes/no)')
     if user_input == "yes"
       puts "saved info will be right hurrr\n"
 
@@ -119,7 +119,7 @@ class Whatever
 
 
   def delete
-    user_input = @@prompt.select('To delete only your last memeage and moodage, choose delete last. To delete ALL of your memeage and moodage, choose delete all. Otherwise choose exit') do |menu|
+    user_input = @@prompt.select('To delete only your last memeage and moodage, choose delete last. To delete ALL of your memeage and moodage, choose delete all. Otherwise, choose exit') do |menu|
   
       menu.choice 'delete last'
       menu.choice 'delete all'
