@@ -1,17 +1,25 @@
 require_relative 'memes_api'
 require 'pry'
 require "tty-prompt"
+require "colorize"
+
+#require "artii"
+
+#a = Artii::Base.new :font => 'slant'
+#a.asciify('Mood Changer')
+
 
 
 class Whatever
 
-  @@prompt = TTY::Prompt.new
+  @@prompt = TTY::Prompt.new(active_color: :magenta)
 
   @@programs = GetMemes.new
 
   def user_inputs_name
-    puts "Please enter your first and last name:"
-    user_name_input = gets.chomp # takes in @@user input in the form of a string ex. "Stefani Waddell"
+    puts "Please enter your first and last name:".magenta
+    user_name_input = gets.chomp
+    # takes in @@user input in the form of a string ex. "Stefani Waddell"
     @@user = User.find_or_create_by(name: "#{user_name_input}") # searches the users table for the name that was inputted, and if no such row exists, it creates one
     FinalKey.create(user_id: "#{@@user.id}")
   end
