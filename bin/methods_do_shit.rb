@@ -12,7 +12,11 @@ require "colorize"
 
 class Whatever
 
+
   @@prompt = TTY::Prompt.new(active_color: :magenta)
+
+
+  @@prompt = TTY::Prompt.new
 
   @@programs = GetMemes.new
 
@@ -25,12 +29,8 @@ class Whatever
   end
 
   def user_inputs_mood
-    #puts "How are you feeling today?\n"
-   # puts "Mood list:"
    mood_list = Mood.pluck :name 
-   #@@user_mood_input = gets.chomp
    @@user_mood_input = @@prompt.select('How are you feeling today?') do |menu|
-  
       menu.choice 'happy', 0
       menu.choice 'bored', 1
       menu.choice 'sad', 2
@@ -58,12 +58,8 @@ class Whatever
     end 
   end
 
-
   def mood_change
-
-    
     user_yesno_input = @@prompt.ask('Did your mood change?')
-    
     counter = 0
     no_counter = 0
     while (counter < 1 && no_counter < 25)
@@ -101,35 +97,30 @@ class Whatever
   def print_updated_info
     user_input = @@prompt.ask('Your mood has been updated. Wanna see it? (yes/no)')
     if user_input == "yes"
-      puts "saved info will be right hurrr\n"
-
+      puts "\nsaved info will be right hurrr"
       us_id = FinalKey.find_by(user_id: "#{@@user.id}").user_id
       mo_id = FinalKey.find_by(user_id: "#{@@user.id}").mood_id
       umo_id = FinalKey.find_by(user_id: "#{@@user.id}").updated_mood_id
       puts <<~ALL_INFO 
+      
       Current User: #{User.find_by(id: "#{us_id}").name}
       Initial Mood: #{Mood.find_by(id: "#{mo_id}").name}
       Initial Meme: #{Meme.find_by(id: "#{@@i_meme}").name}
-      Initial Meme Link: #{Meme.find_by(id: "#{@@i_meme}").url}\n
+      Initial Meme Link: #{Meme.find_by(id: "#{@@i_meme}").url}
       
       Your mood was changed to: #{Mood.find_by(id: "#{umo_id}").name}
       The meme that changed your mood was: #{Meme.find_by(id: "#{@@u_meme}").name}
       The link to the meme that changed your mood was: #{Meme.find_by(id: "#{@@u_meme}").url}\n\n
       ALL_INFO
-
     elsif user_input == "no"
-      #puts delete
       puts "ok deleted"
     else
-      #puts print_updated_info
       puts "yes value didnt work"
     end
   end
 
-
   def delete
     user_input = @@prompt.select('To delete only your last memeage and moodage, choose delete last. To delete ALL of your memeage and moodage, choose delete all. Otherwise, choose exit') do |menu|
-  
       menu.choice 'delete last'
       menu.choice 'delete all'
       menu.choice 'exit'
