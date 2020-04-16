@@ -1,6 +1,11 @@
 require_relative 'memes_api'
-require 'pry'
+
+require "tty-prompt"
+
+
 class Whatever
+
+  @@prompt = TTY::Prompt.new
 
   @@programs = GetMemes.new
 
@@ -12,21 +17,38 @@ class Whatever
   end
 
   def user_inputs_mood
-    puts "How are you feeling today?\n"
-    puts "Mood list:"
-    mood_list = Mood.pluck :name # pulls all of the names from the moods table and puts them into an array
-    mood_list.each.with_index(1) do |value, index| # takes the above array (mood_list) and makes a nice numbered list as output
-      puts "#{index}: #{value}"
+    #puts "How are you feeling today?\n"
+   # puts "Mood list:"
+   mood_list = Mood.pluck :name 
+   #@@user_mood_input = gets.chomp
+   @@user_mood_input = @@prompt.select('How are you feeling today?') do |menu|
+  
+      menu.choice 'happy', 1
+      menu.choice 'bored', 2
+      menu.choice 'sad', 3
+      menu.choice 'meh', 4
+      menu.choice 'still a piece of garbage', 5
+      menu.choice 'like a whole snack', 6
+      menu.choice 'ugly', 7
+      menu.choice 'vibes bro, just vibes', 8
+      menu.choice 'chillin out maxin relaxin all cool', 9
+      menu.choice 'depressy', 10
     end
-    puts "\nPlease enter a mood's number from the above list: "
-    @@user_mood_input = gets.chomp # takes in @@user input in the form of a string ex. "3"
-    mood_search = @@user_mood_input.to_i - 1 # subtracts 1 from the @@user input to match the index pattern of an array (arrays start at 0 and our list starts at 1)
-    mood_input_name = mood_list[mood_search] # uses the above index to search the array and get the name of the mood
-    user_mood_id_from_input = Mood.all.find_by(name: "#{mood_input_name}").id # gets the primary key from the mood table for the mood that the @@user entered
-    FinalKey.last.update(mood_id: "#{user_mood_id_from_input}")
+    # pulls all of the names from the moods table and puts them into an array
+    #@@prompt.select("How are you feeling today?", %w(happy bored sad meh))
+   #mood_list.each.with_index(1) do |value, index| # takes the above array (mood_list) and makes a nice numbered list as output
+      #puts "#{index}: #{value}"
+  #end
+    #puts "\nPlease enter a mood's number from the above list: "
+    #@@user_mood_input = gets.chomp # takes in user input in the form of a string ex. "3"
+    #mood_search = @@user_mood_input.to_i - 1 # subtracts 1 from the user input to match the index pattern of an array (arrays start at 0 and our list starts at 1)
+    #mood_input_name = mood_list[mood_search] # uses the above index to search the array and get the name of the mood
+    #user_mood_id_from_input = Mood.all.find_by(name: "#{mood_input_name}").id # gets the primary key from the mood table for the mood that the user entered
+    #FinalKey.update(mood_id: "#{user_mood_id_from_input}")
   end 
 
-  def first_meme_return()
+  def first_meme_return
+  #if @@user_mood_input.tobetween?(1,10) == true
     if @@user_mood_input.to_i.between?(1,10) == true
       puts "\nSweet, here's a random meme"
       puts @@programs.program_memes
@@ -38,27 +60,39 @@ class Whatever
 
 
   def mood_change
+
     mood_list = Mood.pluck :name
-    puts "\nDid your mood change? Enter 'yes' or 'no' below:"
+    #puts "\nDid your mood change? Enter 'yes' or 'no' below:"
+    user_yesno_input = @@prompt.ask('Did your mood change?')
     
     counter = 0
     no_counter = 0
     while (counter < 1 && no_counter < 5)
-      user_yesno_input = gets.chomp
-      if user_yesno_input == "yes" 
+      #user_yesno_input = gets.chomp
+      if user_yesno_input == "yes"
         counter = 1
-        puts "\nNoice. What did it change to? Enter a number from the mood's list again:"
-        mood_list.each.with_index(1) do |value, index|
-          puts "#{index}: #{value}" 
+        @@prompt.select('Noice. What did it change to?') do |menu|
+  
+        menu.choice 'happy', 1
+        menu.choice 'bored', 2
+        menu.choice 'sad', 3
+        menu.choice 'meh', 4
+        menu.choice 'still a piece of garbage', 5
+        menu.choice 'like a whole snack', 6
+        menu.choice 'ugly', 7
+        menu.choice 'vibes bro, just vibes', 8
+        menu.choice 'chillin out maxin relaxin all cool', 9
+        menu.choice 'depressy', 10
         end
-        user_changed_mood_input = gets.chomp
-        mood_search = user_changed_mood_input.to_i - 1 
-        mood_input_name = mood_list[mood_search] 
-        user_mood_id_from_input = Mood.all.find_by(name: "#{mood_input_name}").id 
-        FinalKey.last.update(updated_mood_id: "#{user_mood_id_from_input}")
+        #puts "\nNoice. What did it change to? Enter a number from the mood's list again:"
+        #mood_list.each.with_index(1) do |value, index|
+          #puts "#{index}: #{value}" 
+        #user_changed_mood_input = gets.chomp
+        # update mood_id here
       elsif no_counter < 4
         puts @@programs.program_memes
-        puts "\nHow 'bout now? Yes or no:" 
+        user_yesno_input = @@prompt.ask('How bout now?')
+        #puts "\nHow 'bout now? Yes or no:" 
         no_counter += 1
         FinalKey.last.update(meme_id: "#{Meme.all.last.id}")
       else 
@@ -67,12 +101,14 @@ class Whatever
       end
     end
   end
-
+  
   def print_updated_info
-    puts "Want to see all your past memeage? enter 'yes' or 'no'"
-    user_input = gets.chomp
+    user_input = @@prompt.ask('Your mood has been updated. Wanna see it?')
+    #puts "Your mood's been updated. Wanna see? Enter 'yes' or 'no'"
+    #user_input = gets.chomp
     if user_input == "yes"
-      puts "\nsaved info will be right hurrr"
+      puts "saved info will be right hurrr"
+
       us_id = FinalKey.find_by(user_id: "#{@@user.id}").user_id
       mo_id = FinalKey.find_by(user_id: "#{@@user.id}").mood_id
       me_id = FinalKey.find_by(user_id: "#{@@user.id}").meme_id
@@ -97,12 +133,32 @@ class Whatever
       The meme that changed your mood was: #{ume_name}
       The link to the meme that changed your mood was: #{ume_url}\n\n
       ALL_INFO
-
+      
     elsif user_input == "no"
-      puts "Das cooo, maybe you wanna delete some sterf?"
-    else 
-      puts "Looks like you fat fingered your keyboard, wanna try again?"
-      print_updated_info
+      #puts delete
+      puts "ok deleted"
+    else
+      #puts print_updated_info
+      puts "yes value didnt work"
+    end
+  end
+
+
+  def delete
+    user_input = @@prompt.select('To delete only your last memeage and moodage, choose delete last. To delete ALL of your memeage and moodage, choose delete all. To exit, press enter') do |menu|
+  
+      menu.choice 'd'
+      menu.choice 'D'
+    end
+    #puts "If you wanna delete your moodage and memeage, enter 'd'. Otherwise, press enter to exit"
+    #user_input = gets.chomp
+    if user_input == "d"
+      FinalKey.all.last.destroy
+      puts "deleted last"
+    elsif user_input == "D"
+      puts "deleted all"
+    else
+      puts "fuck u. if this shows up its not workin bitch"
     end
   end
   
