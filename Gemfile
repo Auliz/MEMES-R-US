@@ -7,4 +7,4 @@ gem "pry"
 gem "require_all"
 gem "launchy"
 gem "tty-prompt"
-gem "audio-playback"
+
