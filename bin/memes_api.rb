@@ -25,7 +25,6 @@ class GetMemes
     meme_url = programs["data"][meme_number]["image"]
 
     Meme.create(name: "#{meme_name}", url: "#{meme_url}")
-
     Launchy.open("#{meme_url}")
     nil
   end
