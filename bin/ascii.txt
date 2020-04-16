@@ -110,8 +110,23 @@ puts blinking_moodchanger4
 
 
 
+moodchanger5 = <<-HEREDOC
+                              _            _                                       
+                             ( )          ( )                                      
+  ___ ___     _      _      _| |      ___ | |__     _ _   ___     __     __   _ __ 
+/' _ ` _ `\ /'_`\  /'_`\  /'_` |    /'___)|  _ `\ /'_` )/' _ `\ /'_ `\ /'__`\( '__)
+| ( ) ( ) |( (_) )( (_) )( (_| |   ( (___ | | | |( (_| || ( ) |( (_) |(  ___/| |   
+(_) (_) (_)`\___/'`\___/'`\__,_)   `\____)(_) (_)`\__,_)(_) (_)`\__  |`\____)(_)   
+                                                               ( )_) |             
+                                                                \___/'             
+HEREDOC
+
+puts  "mood changer\n\n"
+puts moodchanger5
+puts "\n\n"
+
+puts blinking_moodchanger5 = "\e[35;5m" + moodchanger5 + "\e[0m"
 
 
-puts "Blinking Purple Pikachu\n\n"
-blinking_purple_pikachu = "\e[34;5m" + pikachu + "\e[0m"
-puts blinking_purple_pikachu
+
+$ artii 'Art!'
