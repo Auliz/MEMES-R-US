@@ -53,7 +53,7 @@ class Whatever
 
   def mood_change
 
-    mood_list = Mood.pluck :name
+    
     user_yesno_input = @@prompt.ask('Did your mood change?')
     
     counter = 0
@@ -73,9 +73,11 @@ class Whatever
           menu.choice 'chillin out maxin relaxin all cool', 8
           menu.choice 'depressy', 9
         end
+        mood_list = Mood.pluck :name
         mood_input_name = mood_list[updated_mood]
         updated_mood_input = Mood.all.find_by(name: "#{mood_input_name}").id 
         FinalKey.last.update(updated_mood_id: "#{updated_mood_input}")
+        # binding.pry
       elsif no_counter < 4
         @@programs.program_memes
         FinalKey.last.update(meme_id: "#{Meme.all.last.id}")
@@ -97,12 +99,12 @@ class Whatever
       us_id = FinalKey.find_by(user_id: "#{@@user.id}").user_id
       mo_id = FinalKey.find_by(user_id: "#{@@user.id}").mood_id
       umo_id = FinalKey.find_by(user_id: "#{@@user.id}").updated_mood_id
-
       puts <<~ALL_INFO 
       Current User: #{User.find_by(id: "#{us_id}").name}
       Initial Mood: #{Mood.find_by(id: "#{mo_id}").name}
       Initial Meme: #{Meme.find_by(id: "#{@@i_meme}").name}
       Initial Meme Link: #{Meme.find_by(id: "#{@@i_meme}").url}\n
+      
       Your mood was changed to: #{Mood.find_by(id: "#{umo_id}").name}
       The meme that changed your mood was: #{Meme.find_by(id: "#{@@u_meme}").name}
       The link to the meme that changed your mood was: #{Meme.find_by(id: "#{@@u_meme}").url}\n\n
