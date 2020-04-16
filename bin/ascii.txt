@@ -1,0 +1,39 @@
+
+
+#def render_ascii_art
+  #File.readlines("filename.txt") do |line|
+    #puts line
+  #end
+#end
+
+pikachu = <<-HEREDOC
+       `"-.`\\_...._/`.`
+    ,      \\        /
+ .-' ',    / ()   ()\\
+`'._   \\  /()    .  (|
+    > .' ;,     -'-  /
+   / <   |;,     __.;
+   '-.'-.|  , \\    , \\
+      `>.|;, \_)    \_)
+       `-;     ,    /
+          \\    /   <
+           '. <`'-,_)
+            '._)
+HEREDOC
+
+puts "Pikachu\n\n"
+puts pikachu
+puts "\n\n"
+
+#You can add color
+yellow_pikachu = "\e[33m" + pikachu + "\e[0m"
+puts "Yellow Pikachu\n\n"
+puts yellow_pikachu
+puts "\n\n"
+
+#You can add other formatting options as well. Separate each
+#formatting code with a semicolon. Begin your format code with \e[ and end 
+#with the letter m.
+puts "Blinking Red Pikachu\n\n"
+blinking_red_pikachu = "\e[31;5m" + pikachu + "\e[0m"
+puts blinking_red_pikachu
