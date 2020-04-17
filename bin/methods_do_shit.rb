@@ -8,7 +8,40 @@ require "colorize"
 #a = Artii::Base.new :font => 'slant'
 #a.asciify('Mood Changer')
 
-
+puts <<-WIZRD
+                                          .
+                                    *   .     .   .
+                                      . (*.) .    * .
+                                  .  ( .(.. ) )
+                                 . .( (..*  ).*) .
+                      .            ( *  . ). .)  .
+                     /:\\           .  ( (. *.) .   
+                    /:.:\\        .  .  )  *
+                   /:.:.:\\        .*   /.  .    *  
+    M A G I C     |wwWWWww|            /   .
+                  (((""")))           /
+ H A P P E N S !  (. @ @ .)          /
+                  (( (_) ))      __ /
+                 .-)))o(((-.    |:.\
+                /.:((()))):.:\\  /.:.\\
+               /.:.:)))((:.:.:\\/.:.:.|
+              /.:.:.((()).:.:./.:.\\.:|
+             /.:.:.:.))((:.:.:.:.//  \\|
+            /.:.:.:Y:((().Y.:.:.//
+           /.:.:.:/:.:)).:\\:.:.| 
+          /.:.:.:/|.:.(.:.:\\:./ 
+         /.:.:.:/ |:.:.:.:.|\\'
+         `;.:./   |.:.:.:.:| `  
+           |./'   |:.:.:.:.|       
+           `'     |.:.:.:.:|   
+                  |:.:.:.:.|    
+                  |.:.:.:.:| 
+                  |:.:.:.:.|
+                 |:.:.:.:.:.|
+                |.:.:.:.:.:.:|  
+                |:.:.:.:.:.:.|
+                `-:.:.:.:.:.-'
+WIZRD
 
 class Whatever
 
@@ -16,7 +49,6 @@ class Whatever
   @@prompt = TTY::Prompt.new(active_color: :magenta)
 
 
-  @@prompt = TTY::Prompt.new
 
   @@programs = GetMemes.new
 
@@ -113,9 +145,16 @@ class Whatever
       The link to the meme that changed your mood was: #{Meme.find_by(id: "#{@@u_meme}").url}\n\n
       ALL_INFO
     elsif user_input == "no"
-      puts "ok deleted"
+      puts "Okay whatever floats your boat"
+      puts <<-HEREDOC
+             __/___            
+      _____/______|           
+_______/_____\_______\_____     
+\              < < <       |    
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+HEREDOC
     else
-      puts "yes value didnt work"
+      puts "Ruh roh"
     end
   end
 
