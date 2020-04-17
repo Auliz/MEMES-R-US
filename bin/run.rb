@@ -4,8 +4,7 @@ require_relative 'methods_do_shit'
 
 class CallOnShit < Whatever
     methods = Whatever.new
-    # menu_methods = CallOnShit.new
-
+    # run_shit = CallOnShit.new
     methods.welcome
     methods.user_inputs_name
     methods.user_inputs_mood
@@ -14,9 +13,9 @@ class CallOnShit < Whatever
     methods.print_updated_info
     methods.delete
 
-  # self.menu
+  # run_shit.menu()
 
-  # def self.menu 
+  # def menu 
   #   menu_input = @@prompt.select('What would you like to do?') do |menu|
   #     menu.choice 'Get mah mooood changed duhh', 1
   #     menu.choice 'Print my past memeage and moodage', 2
