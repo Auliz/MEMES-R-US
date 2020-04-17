@@ -74,21 +74,20 @@ WIZRD
       menu.choice 'chillin out maxin relaxin all cool', 8
       menu.choice 'depressy', 9
     end
-    mood_input_name = mood_list[@@user_mood_input] # uses the above index to search the array and get the name of the mood
-    user_mood_id_from_input = Mood.all.find_by(name: "#{mood_input_name}").id # gets the primary key from the mood table for the mood that the user entered
+    mood_input_name = mood_list[@@user_mood_input] 
+    user_mood_id_from_input = Mood.all.find_by(name: "#{mood_input_name}").id 
     FinalKey.last.update(mood_id: "#{user_mood_id_from_input}")
   end 
 
   def first_meme_return
-    if @@user_mood_input != 4
+    if @@user_mood_input != 4 
       puts "\nSweet, here's a random meme"
       programs = GetMemes.new
       programs.program_memes
       FinalKey.last.update(meme_id: "#{Meme.all.last.id}")
       @@i_meme = FinalKey.last.meme_id
     elsif @@user_mood_input == 4
-      puts "\nSweet, here's a random meme"
-      fork{ exec 'afplay', "/Users/haley/Downloads/still-a-piece-of-garbage.mp3" }
+      fork{ exec 'afplay', "/Users/auliz/Downloads/still-a-piece-of-garbage.mp3" }
       programs = GetMemes.new
       programs.program_memes
       FinalKey.last.update(meme_id: "#{Meme.all.last.id}")
@@ -117,10 +116,19 @@ WIZRD
           menu.choice 'chillin out maxin relaxin all cool', 8
           menu.choice 'depressy', 9
         end
-        mood_list = Mood.pluck :name
-        mood_input_name = mood_list[updated_mood]
-        updated_mood_input = Mood.all.find_by(name: "#{mood_input_name}").id 
-        FinalKey.last.update(updated_mood_id: "#{updated_mood_input}")
+        if updated_mood != 4 
+          mood_list = Mood.pluck :name
+          mood_input_name = mood_list[updated_mood]
+          updated_mood_input = Mood.all.find_by(name: "#{mood_input_name}").id 
+          FinalKey.last.update(updated_mood_id: "#{updated_mood_input}")
+        elsif updated_mood == 4 
+          fork{ exec 'afplay', "/Users/auliz/Downloads/still-a-piece-of-garbage.mp3" }
+          mood_list = Mood.pluck :name
+          mood_input_name = mood_list[updated_mood]
+          updated_mood_input = Mood.all.find_by(name: "#{mood_input_name}").id 
+          FinalKey.last.update(updated_mood_id: "#{updated_mood_input}")
+        end 
+
       elsif no_counter < 24
         # FIX ME MAYBE?
         memes_do = GetMemes.new
@@ -138,6 +146,7 @@ WIZRD
   end
   
   def print_updated_info
+    sleep 3
     puts "\e[H\e[2J"
     user_input = @@prompt.ask('Your mood has been updated. Wanna see it? (yes/no)')
     if user_input == "yes"
@@ -185,7 +194,7 @@ HEREDOC
 
   def felicia
     sleep 1
-    a = Artii::Base.new :font => 'slant'
+    a = Artii::Base.new :font => 'gothic'
     puts "\e[34;5m" + "#{a.asciify('bye felicia')}" + "\e[0m" 
     `say "bye felicia"`
   end 
