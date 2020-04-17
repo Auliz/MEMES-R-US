@@ -6,10 +6,44 @@ require "artii"
 
 class Whatever
 
-  @@prompt = TTY::Prompt.new(active_color: :magenta)
+  @@prompt = TTY::Prompt.new(active_color: :blue)
 
   def welcome
-    a = Artii::Base.new :font => 'slant'
+    puts <<-WIZRD
+                                                  .
+                                            *   .     .   .
+                                              . (*.) .    * .
+                                          .  ( .(.. ) )
+                                         . .( (..*  ).*) .
+                              .            ( *  . ). .)  .
+                             /:\\           .  ( (. *.) .   
+                            /:.:\\        .  .  )  *
+                           /:.:.:\\        .*   /.  .    *  
+            M A G I C     |wwWWWww|            /   .
+                          (((""")))           /
+         H A P P E N S !  (. @ @ .)          /
+                          (( (_) ))      __ /
+                         .-)))o(((-.    |:.\\
+                        /.:((()))):.:\\  /.:.\\
+                       /.:.:)))((:.:.:\\/.:.:.|
+                      /.:.:.((()).:.:./.:.\\.:|
+                     /.:.:.:.))((:.:.:.:.//  \\|
+                    /.:.:.:Y:((().Y.:.:.//
+                   /.:.:.:/:.:)).:\\:.:.| 
+                  /.:.:.:/|.:.(.:.:\\:./ 
+                 /.:.:.:/ |:.:.:.:.|\\'
+                 `;.:./   |.:.:.:.:| `  
+                   |./'   |:.:.:.:.|       
+                   `'     |.:.:.:.:|   
+                          |:.:.:.:.|    
+                          |.:.:.:.:| 
+                          |:.:.:.:.|
+                         |:.:.:.:.:.|
+                        |.:.:.:.:.:.:|  
+                        |:.:.:.:.:.:.|
+                        `-:.:.:.:.:.-'
+WIZRD
+    a = Artii::Base.new :font => 'gothic'
     puts "\e[34m" + "#{a.asciify('Mood Changer')}" + "\e[0m" 
     puts <<~DISCLAIMER
     -----DISCLAIMER-----
@@ -19,7 +53,7 @@ class Whatever
   end 
 
   def user_inputs_name
-    puts "\n\nPlease enter your first and last name:".magenta
+    puts "\n\nPlease enter your first and last name:"
     user_name_input = gets.chomp # takes in @@user input in the form of a string ex. "Stefani Waddell"
     @@user = User.find_or_create_by(name: "#{user_name_input}") # searches the users table for the name that was inputted, and if no such row exists, it creates one
     FinalKey.create(user_id: "#{@@user.id}")
@@ -80,6 +114,7 @@ class Whatever
         updated_mood_input = Mood.all.find_by(name: "#{mood_input_name}").id 
         FinalKey.last.update(updated_mood_id: "#{updated_mood_input}")
       elsif no_counter < 24
+        # FIX ME MAYBE?
         memes_do = GetMemes.new
         memes_do.program_memes
         FinalKey.last.update(meme_id: "#{Meme.all.last.id}")
@@ -87,6 +122,7 @@ class Whatever
         no_counter += 1
       else 
         puts "Out of memes for today. Seek therapy"
+        sleep 3
         no_counter += 1
       end
     end
@@ -114,9 +150,16 @@ class Whatever
       ALL_INFO
       # binding.pry
     elsif user_input == "no"
-      puts "ok deleted"
+      puts "Okay whatever floats your boat"
+      puts <<-HEREDOC
+             __/___            
+      _____/______|           
+_______/_____\_______\_____     
+\              < < <       |    
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+HEREDOC
     else
-      puts "yes value didnt work"
+      puts "Ruh roh"
     end
   end
 
