@@ -8,54 +8,58 @@ require "colorize"
 #a = Artii::Base.new :font => 'slant'
 #a.asciify('Mood Changer')
 
-puts <<-WIZRD
-                                          .
-                                    *   .     .   .
-                                      . (*.) .    * .
-                                  .  ( .(.. ) )
-                                 . .( (..*  ).*) .
-                      .            ( *  . ). .)  .
-                     /:\\           .  ( (. *.) .   
-                    /:.:\\        .  .  )  *
-                   /:.:.:\\        .*   /.  .    *  
-    M A G I C     |wwWWWww|            /   .
-                  (((""")))           /
- H A P P E N S !  (. @ @ .)          /
-                  (( (_) ))      __ /
-                 .-)))o(((-.    |:.\\
-                /.:((()))):.:\\  /.:.\\
-               /.:.:)))((:.:.:\\/.:.:.|
-              /.:.:.((()).:.:./.:.\\.:|
-             /.:.:.:.))((:.:.:.:.//  \\|
-            /.:.:.:Y:((().Y.:.:.//
-           /.:.:.:/:.:)).:\\:.:.| 
-          /.:.:.:/|.:.(.:.:\\:./ 
-         /.:.:.:/ |:.:.:.:.|\\'
-         `;.:./   |.:.:.:.:| `  
-           |./'   |:.:.:.:.|       
-           `'     |.:.:.:.:|   
-                  |:.:.:.:.|    
-                  |.:.:.:.:| 
-                  |:.:.:.:.|
-                 |:.:.:.:.:.|
-                |.:.:.:.:.:.:|  
-                |:.:.:.:.:.:.|
-                `-:.:.:.:.:.-'
-WIZRD
 
 class Whatever
 
+  @@prompt = TTY::Prompt.new(active_color: :blue)
 
-  @@prompt = TTY::Prompt.new(active_color: :magenta)
-
-
-
-  @@programs = GetMemes.new
+  def welcome
+    puts <<-WIZRD
+                                                  .
+                                            *   .     .   .
+                                              . (*.) .    * .
+                                          .  ( .(.. ) )
+                                         . .( (..*  ).*) .
+                              .            ( *  . ). .)  .
+                             /:\\           .  ( (. *.) .   
+                            /:.:\\        .  .  )  *
+                           /:.:.:\\        .*   /.  .    *  
+            M A G I C     |wwWWWww|            /   .
+                          (((""")))           /
+         H A P P E N S !  (. @ @ .)          /
+                          (( (_) ))      __ /
+                         .-)))o(((-.    |:.\\
+                        /.:((()))):.:\\  /.:.\\
+                       /.:.:)))((:.:.:\\/.:.:.|
+                      /.:.:.((()).:.:./.:.\\.:|
+                     /.:.:.:.))((:.:.:.:.//  \\|
+                    /.:.:.:Y:((().Y.:.:.//
+                   /.:.:.:/:.:)).:\\:.:.| 
+                  /.:.:.:/|.:.(.:.:\\:./ 
+                 /.:.:.:/ |:.:.:.:.|\\'
+                 `;.:./   |.:.:.:.:| `  
+                   |./'   |:.:.:.:.|       
+                   `'     |.:.:.:.:|   
+                          |:.:.:.:.|    
+                          |.:.:.:.:| 
+                          |:.:.:.:.|
+                         |:.:.:.:.:.|
+                        |.:.:.:.:.:.:|  
+                        |:.:.:.:.:.:.|
+                        `-:.:.:.:.:.-'
+WIZRD
+    a = Artii::Base.new :font => 'gothic'
+    puts "\e[34m" + "#{a.asciify('Mood Changer')}" + "\e[0m" 
+    puts <<~DISCLAIMER
+    -----DISCLAIMER-----
+    The content you will see from this app is taken from Reddit, therefore we do not control what may appear. Some content you see may be NSFW.
+    DISCLAIMER
+    sleep 5
+  end 
 
   def user_inputs_name
-    puts "Please enter your first and last name:"
-    user_name_input = gets.chomp
-    # takes in @@user input in the form of a string ex. "Stefani Waddell"
+    puts "\n\nPlease enter your first and last name:"
+    user_name_input = gets.chomp # takes in @@user input in the form of a string ex. "Stefani Waddell"
     @@user = User.find_or_create_by(name: "#{user_name_input}") # searches the users table for the name that was inputted, and if no such row exists, it creates one
     FinalKey.create(user_id: "#{@@user.id}")
   end
@@ -82,7 +86,8 @@ class Whatever
   def first_meme_return
     if @@user_mood_input.between?(0,9) == true
       puts "\nSweet, here's a random meme"
-      @@programs.program_memes
+      programs = GetMemes.new
+      programs.program_memes
       FinalKey.last.update(meme_id: "#{Meme.all.last.id}")
       @@i_meme = FinalKey.last.meme_id
     else 
@@ -91,7 +96,7 @@ class Whatever
   end
 
   def mood_change
-    user_yesno_input = @@prompt.ask('Did your mood change?')
+    user_yesno_input = @@prompt.ask("Did your mood change? Enter 'yes' or 'no'")
     counter = 0
     no_counter = 0
     while (counter < 1 && no_counter < 25)
@@ -114,19 +119,23 @@ class Whatever
         updated_mood_input = Mood.all.find_by(name: "#{mood_input_name}").id 
         FinalKey.last.update(updated_mood_id: "#{updated_mood_input}")
       elsif no_counter < 24
-        @@programs.program_memes
+        # FIX ME MAYBE?
+        memes_do = GetMemes.new
+        memes_do.program_memes
         FinalKey.last.update(meme_id: "#{Meme.all.last.id}")
-        @@u_meme = FinalKey.last.meme_id
-        user_yesno_input = @@prompt.ask('How bout now?')
+        user_yesno_input = @@prompt.ask("How bout now? Enter 'yes' or 'no' ")
         no_counter += 1
       else 
         puts "Out of memes for today. Seek therapy"
+        sleep 3
         no_counter += 1
       end
     end
+    @@u_meme = FinalKey.last.meme_id
   end
   
   def print_updated_info
+    puts "\e[H\e[2J"
     user_input = @@prompt.ask('Your mood has been updated. Wanna see it? (yes/no)')
     if user_input == "yes"
       puts "\nsaved info will be right hurrr"
@@ -144,6 +153,7 @@ class Whatever
       The meme that changed your mood was: #{Meme.find_by(id: "#{@@u_meme}").name}
       The link to the meme that changed your mood was: #{Meme.find_by(id: "#{@@u_meme}").url}\n\n
       ALL_INFO
+      # binding.pry
     elsif user_input == "no"
       puts "Okay whatever floats your boat"
       puts <<-HEREDOC
@@ -158,7 +168,16 @@ HEREDOC
     end
   end
 
+  def felicia
+    sleep 1
+    a = Artii::Base.new :font => 'slant'
+    puts "\e[34;5m" + "#{a.asciify('bye felicia')}" + "\e[0m" 
+    `say "bye felicia"`
+  end 
+
+
   def delete
+    puts "\n\n"
     user_input = @@prompt.select('To delete only your last memeage and moodage, choose delete last. To delete ALL of your memeage and moodage, choose delete all. Otherwise, choose exit') do |menu|
       menu.choice 'delete last'
       menu.choice 'delete all'
@@ -167,12 +186,13 @@ HEREDOC
     if user_input == "delete last"
       FinalKey.all.where(user_id: "#{@@user.id}").last.destroy
       puts "deleted last"
+      felicia
     elsif user_input == "delete all"
       FinalKey.all.where(user_id: "#{@@user.id}").destroy_all
       puts "deleted all"
+      felicia
     else user_input == "exit"
-      puts "bye felicia"
-      `say "bye felicia"`
+      felicia
     end
   end
  
