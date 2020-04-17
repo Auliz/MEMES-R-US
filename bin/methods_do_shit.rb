@@ -4,6 +4,7 @@ require "tty-prompt"
 require "colorize"
 require "artii"
 
+
 class Whatever
 
   @@prompt = TTY::Prompt.new(active_color: :blue)
@@ -49,7 +50,7 @@ WIZRD
     -----DISCLAIMER-----
     The content you will see from this app is taken from Reddit, therefore we do not control what may appear. Some content you see may be NSFW.
     DISCLAIMER
-    sleep 5
+    sleep 2
   end 
 
   def user_inputs_name
@@ -79,8 +80,15 @@ WIZRD
   end 
 
   def first_meme_return
-    if @@user_mood_input.between?(0,9) == true
+    if @@user_mood_input != 4
       puts "\nSweet, here's a random meme"
+      programs = GetMemes.new
+      programs.program_memes
+      FinalKey.last.update(meme_id: "#{Meme.all.last.id}")
+      @@i_meme = FinalKey.last.meme_id
+    elsif @@user_mood_input == 4
+      puts "\nSweet, here's a random meme"
+      fork{ exec 'afplay', "/Users/haley/Downloads/still-a-piece-of-garbage.mp3" }
       programs = GetMemes.new
       programs.program_memes
       FinalKey.last.update(meme_id: "#{Meme.all.last.id}")
@@ -150,13 +158,25 @@ WIZRD
       ALL_INFO
       # binding.pry
     elsif user_input == "no"
-      puts "Okay whatever floats your boat"
+      puts "Okay whatever floats your boat\n"
       puts <<-HEREDOC
-             __/___            
-      _____/______|           
-_______/_____\_______\_____     
-\              < < <       |    
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+             ____
+              ---|
+  \\/           /|     \\/
+               / |\\
+              /  | \\       \\/
+             /   || \\
+            /    | | \\
+           /     | |  \\
+          /      | |   \\
+         /       ||     \\
+        /        /       \\
+       /________/         \\
+       ________/__________--/
+ ~~~   \\___________________/
+         ~~~~~~~~~~       ~~~~~~~~
+~~~~~~~~~~~~~     ~~~~~~~~~
+                               ~~~~~~~~~
 HEREDOC
     else
       puts "Ruh roh"
