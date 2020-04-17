@@ -4,6 +4,7 @@ require "tty-prompt"
 require "colorize"
 require "artii"
 
+
 class Whatever
 
   @@prompt = TTY::Prompt.new(active_color: :blue)
@@ -166,13 +167,25 @@ WIZRD
       ALL_INFO
       # binding.pry
     elsif user_input == "no"
-      puts "Okay whatever floats your boat"
+      puts "Okay whatever floats your boat\n"
       puts <<-HEREDOC
-             __/___            
-      _____/______|           
-_______/_____\_______\_____     
-\              < < <       |    
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+             ____
+              ---|
+  \\/           /|     \\/
+               / |\\
+              /  | \\       \\/
+             /   || \\
+            /    | | \\
+           /     | |  \\
+          /      | |   \\
+         /       ||     \\
+        /        /       \\
+       /________/         \\
+       ________/__________--/
+ ~~~   \\___________________/
+         ~~~~~~~~~~       ~~~~~~~~
+~~~~~~~~~~~~~     ~~~~~~~~~
+                               ~~~~~~~~~
 HEREDOC
     else
       puts "Ruh roh"
