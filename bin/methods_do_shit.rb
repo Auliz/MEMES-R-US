@@ -17,7 +17,7 @@ class Whatever
   @@programs = GetMemes.new
 
   def user_inputs_name
-    puts "Please enter your first and last name:".magenta
+    puts "Please enter your first and last name:"
     user_name_input = gets.chomp
     # takes in @@user input in the form of a string ex. "Stefani Waddell"
     @@user = User.find_or_create_by(name: "#{user_name_input}") # searches the users table for the name that was inputted, and if no such row exists, it creates one
