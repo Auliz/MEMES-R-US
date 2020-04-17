@@ -73,8 +73,8 @@ WIZRD
       menu.choice 'chillin out maxin relaxin all cool', 8
       menu.choice 'depressy', 9
     end
-    mood_input_name = mood_list[@@user_mood_input] # uses the above index to search the array and get the name of the mood
-    user_mood_id_from_input = Mood.all.find_by(name: "#{mood_input_name}").id # gets the primary key from the mood table for the mood that the user entered
+    mood_input_name = mood_list[@@user_mood_input] 
+    user_mood_id_from_input = Mood.all.find_by(name: "#{mood_input_name}").id 
     FinalKey.last.update(mood_id: "#{user_mood_id_from_input}")
   end 
 
@@ -86,7 +86,6 @@ WIZRD
       FinalKey.last.update(meme_id: "#{Meme.all.last.id}")
       @@i_meme = FinalKey.last.meme_id
     elsif @@user_mood_input == 4
-      puts "\nSweet, here's a random meme"
       fork{ exec 'afplay', "/Users/auliz/Downloads/still-a-piece-of-garbage.mp3" }
       programs = GetMemes.new
       programs.program_memes
@@ -146,7 +145,7 @@ WIZRD
   end
   
   def print_updated_info
-    sleep 2
+    sleep 3
     puts "\e[H\e[2J"
     user_input = @@prompt.ask('Your mood has been updated. Wanna see it? (yes/no)')
     if user_input == "yes"
