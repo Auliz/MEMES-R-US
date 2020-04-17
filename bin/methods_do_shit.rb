@@ -1,16 +1,16 @@
 require_relative 'memes_api'
 require 'pry'
 require "tty-prompt"
-require 'artii'
-
+require "colorize"
+require "artii"
 
 class Whatever
 
-  @@prompt = TTY::Prompt.new
+  @@prompt = TTY::Prompt.new(active_color: :magenta)
 
   def welcome
     a = Artii::Base.new :font => 'slant'
-    puts "\e[34;5m" + "#{a.asciify('Mood Changer')}" + "\e[0m" 
+    puts "\e[34m" + "#{a.asciify('Mood Changer')}" + "\e[0m" 
     puts <<~DISCLAIMER
     -----DISCLAIMER-----
     The content you will see from this app is taken from Reddit, therefore we do not control what may appear. Some content you see may be NSFW.
@@ -19,7 +19,7 @@ class Whatever
   end 
 
   def user_inputs_name
-    puts "\n\nPlease enter your first and last name:"
+    puts "\n\nPlease enter your first and last name:".magenta
     user_name_input = gets.chomp # takes in @@user input in the form of a string ex. "Stefani Waddell"
     @@user = User.find_or_create_by(name: "#{user_name_input}") # searches the users table for the name that was inputted, and if no such row exists, it creates one
     FinalKey.create(user_id: "#{@@user.id}")
@@ -83,7 +83,6 @@ class Whatever
         memes_do = GetMemes.new
         memes_do.program_memes
         FinalKey.last.update(meme_id: "#{Meme.all.last.id}")
-        binding.pry
         user_yesno_input = @@prompt.ask("How bout now? Enter 'yes' or 'no' ")
         no_counter += 1
       else 
@@ -95,6 +94,7 @@ class Whatever
   end
   
   def print_updated_info
+    puts "\e[H\e[2J"
     user_input = @@prompt.ask('Your mood has been updated. Wanna see it? (yes/no)')
     if user_input == "yes"
       puts "\nsaved info will be right hurrr"
@@ -112,6 +112,7 @@ class Whatever
       The meme that changed your mood was: #{Meme.find_by(id: "#{@@u_meme}").name}
       The link to the meme that changed your mood was: #{Meme.find_by(id: "#{@@u_meme}").url}\n\n
       ALL_INFO
+      # binding.pry
     elsif user_input == "no"
       puts "ok deleted"
     else
@@ -119,7 +120,16 @@ class Whatever
     end
   end
 
+  def felicia
+    sleep 1
+    a = Artii::Base.new :font => 'slant'
+    puts "\e[34;5m" + "#{a.asciify('bye felicia')}" + "\e[0m" 
+    `say "bye felicia"`
+  end 
+
+
   def delete
+    puts "\n\n"
     user_input = @@prompt.select('To delete only your last memeage and moodage, choose delete last. To delete ALL of your memeage and moodage, choose delete all. Otherwise, choose exit') do |menu|
       menu.choice 'delete last'
       menu.choice 'delete all'
@@ -128,13 +138,13 @@ class Whatever
     if user_input == "delete last"
       FinalKey.all.where(user_id: "#{@@user.id}").last.destroy
       puts "deleted last"
+      felicia
     elsif user_input == "delete all"
       FinalKey.all.where(user_id: "#{@@user.id}").destroy_all
       puts "deleted all"
+      felicia
     else user_input == "exit"
-      a = Artii::Base.new :font => 'slant'
-      puts "\e[34m" + "#{a.asciify('bye felicia')}" + "\e[0m" 
-      `say "bye felicia"`
+      felicia
     end
   end
  
